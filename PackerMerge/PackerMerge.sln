@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9E022B4E-FAAE-4FC9-907C-C74421C6D5A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F0643C55-EA57-4988-BBA6-E1A4F8A1CE89}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "PackerMerge", "src\PackerMerge\PackerMerge.xproj", "{87B1A988-EA51-4FD1-B905-E5D95F5840D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87B1A988-EA51-4FD1-B905-E5D95F5840D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87B1A988-EA51-4FD1-B905-E5D95F5840D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87B1A988-EA51-4FD1-B905-E5D95F5840D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87B1A988-EA51-4FD1-B905-E5D95F5840D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{87B1A988-EA51-4FD1-B905-E5D95F5840D8} = {9E022B4E-FAAE-4FC9-907C-C74421C6D5A5}
+	EndGlobalSection
+EndGlobal
