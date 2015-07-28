@@ -2,75 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PackerMerge.Mergers;
 
 namespace PackerMerge
 {
     public static class CombinatorStrategyAdd
     {
+
         public static PackerTemplate Combine(PackerTemplate current, PackerTemplate extraData)
         {
-            if (extraData.Variables != null)
-            {
-                MergeVariables(current, extraData);
-            }
+            var variables = new VariablesMerger(current, extraData).MergeVariables();
+            var builders = new BuildersMerger(current, extraData).MergeBuilders();
+            var provisioners = new ProvisionersMerger(current, extraData).MergeProvisioners();
+            var postProcessors = new PostProcessorsMerger(current, extraData).MergePostProcessors();
+            var merged = new PackerTemplate(variables, builders, provisioners, postProcessors);
 
-            if (extraData.Builders != null)
-            {
-                MergeBuilders(current, extraData);
-            }
-
-            if (extraData.Provisioners != null)
-            {
-                MergeProvisioners(current, extraData);
-            }
-
-
-            return current;
+            return merged;
         }
 
-        private static void MergeVariables(PackerTemplate current, PackerTemplate extraData)
-        {
-            if (current.Variables == null)
-            {
-                current.Variables = extraData.Variables.DeepClone();
-            }
-            else
-            {
-                foreach (var variable in extraData.Variables)
-                {
-                    current.Variables.Add(variable);
-                }
-            }
-        }
-
-        private static void MergeBuilders(PackerTemplate current, PackerTemplate extraData)
-        {
-            if (current.Builders == null)
-            {
-                current.Builders = extraData.Builders.DeepClone();
-            }
-            else
-            {
-                foreach (var builder in extraData.Builders)
-                {
-                    current.Builders.Add(builder);
-                }
-            }
-        }
-
-        private static void MergeProvisioners(PackerTemplate current, PackerTemplate extraData)
-        {
-            if (current.Provisioners == null)
-            {
-                current.Provisioners = extraData.Provisioners.DeepClone();
-            }
-            else
-            {
-                foreach (var provisioner in extraData.Provisioners)
-                {
-                    current.Provisioners.Add(provisioner);
-                }
-            }
-        }
     }
 }

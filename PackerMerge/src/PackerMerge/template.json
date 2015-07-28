@@ -1,0 +1,58 @@
+{
+  "variables": {
+    "version": "0.1.0",
+    "iso_url": "iso/en_windows_7_professional_with_sp1_x64_dvd_u_676939.iso",
+    "iso_checksum": "ed15956fe33c13642a6d2cb2c7aa9749",
+    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c 'Packer Shutdown'",
+    "update": "true"
+  },
+  "builders": [
+    {
+      "vm_name": "win7x64-enterprise",
+      "type": "hyperv-iso",
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "sha1",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "10000s",
+      "disk_size": 40960,
+      "switch_name": "",
+      "floppy_files": [
+        "floppy/win7/x64/hyperv/autounattend.xml",
+        "floppy/common/openssh.ps1",
+        "floppy/ufo.cmd"
+      ],
+      "shutdown_command": "{{ user `shutdown_command`}}"
+    },
+    {
+      "type": "virtualbox-iso",
+      "communicator": "winrm",
+      "winrm_username": "{{ user `ssh_user` }}",
+      "winrm_password": "{{ user `ssh_pwd` }}",
+      "winrm_timeout": "8h",
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "md5",
+      "ssh_wait_timeout": "8h",
+      "ssh_username": "{{ user `ssh_user` }}",
+      "ssh_password": "{{ user `ssh_pwd` }}",
+      "guest_os_type": "Windows7",
+      "headless": "{{ user `headless` }}",
+      "disk_size": 40960,
+      "floppy_files": [
+        "floppy/win7/x86/autounattend.xml",
+        "floppy/common/openssh.ps1"
+      ],
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ]
+      ],
+      "shutdown_command": "{{ user `shutdown_command`}}"
+    }
+  ]
+}

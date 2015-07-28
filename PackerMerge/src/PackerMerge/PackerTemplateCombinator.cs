@@ -8,7 +8,7 @@ namespace PackerMerge
     public class PackerTemplateCombinator
     {
         private readonly PackerTemplate[] _input;
-        private readonly PackerTemplate _output;
+        private PackerTemplate _output;
 
         public PackerTemplate Output
         {
@@ -19,15 +19,15 @@ namespace PackerMerge
         }
         public PackerTemplateCombinator(IEnumerable<PackerTemplate> input)
         {
-            _input = input.ToArray();
             _output = new PackerTemplate();
+            _input = input.ToArray();
         }
 
         public PackerTemplateCombinator Combine()
         {
             foreach (var template in _input)
             {
-                CombinatorStrategyAdd.Combine(_output, template);
+                _output = CombinatorStrategyAdd.Combine(_output, template);
             }
             return this;
         }
