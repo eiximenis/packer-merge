@@ -30,9 +30,13 @@ namespace PackerMerge.Mergers
 
             var mixed = bfirst.DeepClone();
 
-            foreach (var builder in bsecond)
+            if (bsecond != null)
             {
-                CombineBuilders(mixed, builder);
+
+                foreach (var builder in bsecond)
+                {
+                    CombineBuilders(mixed, builder);
+                }
             }
 
 

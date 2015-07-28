@@ -30,9 +30,13 @@ namespace PackerMerge.Mergers
 
             var mixed = ppfirst.DeepClone();
 
-            foreach (var postProcessor in ppsecond)
+            if (ppsecond != null)
             {
-                mixed.Add(postProcessor);
+
+                foreach (var postProcessor in ppsecond)
+                {
+                    mixed.Add(postProcessor);
+                }
             }
 
             return mixed;

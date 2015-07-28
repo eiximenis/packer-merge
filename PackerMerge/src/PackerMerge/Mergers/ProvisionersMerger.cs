@@ -30,9 +30,12 @@ namespace PackerMerge.Mergers
 
             var mixed = pfirst.DeepClone();
 
-            foreach (var provisioner in psecond)
+            if (psecond != null)
             {
-                mixed.Add(provisioner);
+                foreach (var provisioner in psecond)
+                {
+                    mixed.Add(provisioner);
+                }
             }
 
             return mixed;
