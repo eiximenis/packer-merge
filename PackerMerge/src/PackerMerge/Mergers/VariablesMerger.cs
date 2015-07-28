@@ -34,7 +34,7 @@ namespace PackerMerge.Mergers
             {
                 foreach (var svar in vsecond)
                 {
-                    AddVariableIfNeeded(vfirst, svar);
+                    AddVariableIfNeeded(mixed, svar);
                 }
             }
 
