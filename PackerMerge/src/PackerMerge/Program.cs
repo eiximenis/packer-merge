@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace PackerMerge
 {
-    public class Program
+    class Program
     {
-        public void Main(string[] args)
+        static void Main(string[] args)
         {
             var parameters = new Parameters();
             parameters.Process(args);
