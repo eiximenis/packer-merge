@@ -13,9 +13,6 @@ Very basic. Accepts two parameters:
     -i:template.json,template2.json,...,templateN.json -> Files to combine
     
     -o:template_outuput.json -> Packer template with combination of all input templates
-  
-Current version only works if input templates uses different sections of packer template (e.g. can have one template with
-builders and another with provisioners, but can't combine two builders templates). This is in the scope of course :)
 
 ##Technology
 
