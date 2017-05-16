@@ -8,11 +8,13 @@ Any idea is appreciated, so feel free to open issues to submit your ideas.
 
 ##Current usage
 
-Very basic. Accepts two parameters:
+Very basic. Has only one command `merge` with following usage:
 
-    -i:template.json,template2.json,...,templateN.json -> Files to combine
-    
-    -o:template_outuput.json -> Packer template with combination of all input templates
+```
+merge -i template1.json -i template2.json -i templateN.json -o combinedTemplate.json
+```
+
+`-i` is for input templates and `-o` is for the result template
 
 ##Technology
 
