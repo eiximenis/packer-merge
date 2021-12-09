@@ -1,4 +1,4 @@
-name: dotnet package
+name: CI/CD
 
 on:
   push:
@@ -20,6 +20,7 @@ jobs:
         with:
           dotnet-version: "6.0.x"
       - name: Install dependencies
+        working-directory: PackerMerge/src/PackerMerge
         run: dotnet restore
       - name: Build
         working-directory: PackerMerge/src/PackerMerge
@@ -43,6 +44,7 @@ jobs:
           path: PackerMerge/src/PackerMerge/out/packer-merge-${{ matrix.runtime }}.tar.gz
   gh-release:
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Download binaries windows
         uses: actions/download-artifact@v2

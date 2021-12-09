@@ -1,7 +1,10 @@
 name: CI (build)
 
-on: push
-
+on:
+  push:
+     branches-ignore:
+     - master
+    
 jobs:
   build:
     runs-on: ${{ matrix.machine }}
