@@ -66,4 +66,4 @@ jobs:
           files: |
             binaries/osx/packer-merge-osx-x64.tar.gz
             binaries/linux/packer-merge-linux-x64.tar.gz
-            binaries/win/packer-merge.win-x64.tar.gz
+            binaries/win/packer-merge-win-x64.tar.gz
