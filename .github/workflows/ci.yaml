@@ -17,10 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET Core SDK 6
-        uses: actions/setup-dotnet
+        uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "6.0.x"
       - name: Install dependencies
+        working-directory: src/PackerMerge
         run: dotnet restore
       - name: Build
+        working-directory: src/PackerMerge
         run: dotnet build --configuration Release --no-restore
