@@ -32,10 +32,9 @@ jobs:
       - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
-          directory: PackerMerge/src/PackerMerge/out
           type: 'tar'
-          path: ${{ matrix.runtime }}
-          filename: 'packer-merge-${{ matrix.runtime }}.tar.gz'
+          path: PackerMerge/src/PackerMerge/out/${{ matrix.runtime }}
+          filename: PackerMerge/src/PackerMerge/out/packer-merge-${{ matrix.runtime }}.tar.gz
           exclusions: '*.pdb'
       - name: upload-binaries
         uses: actions/upload-artifact@v2
