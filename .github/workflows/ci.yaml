@@ -21,8 +21,8 @@ jobs:
         with:
           dotnet-version: "6.0.x"
       - name: Install dependencies
-        working-directory: src/PackerMerge
+        working-directory: PackerMerge/src/PackerMerge
         run: dotnet restore
       - name: Build
-        working-directory: src/PackerMerge
+        working-directory: PackerMerge/src/PackerMerge
         run: dotnet build --configuration Release --no-restore

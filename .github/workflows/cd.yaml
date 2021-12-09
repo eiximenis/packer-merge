@@ -22,16 +22,16 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
       - name: Build
-        working-directory: src/PackerMerge
+        working-directory: PackerMerge/src/PackerMerge
         run: dotnet build --configuration Release --no-restore
       - name: Publish
-        working-directory: src/PackerMerge
+        working-directory: PackerMerge/src/PackerMerge
         run: dotnet publish --configuration Release  -p:PublishSingleFile=true -o out/${{ matrix.runtime }} -r ${{ matrix.runtime }}
       - uses: actions/checkout@master
       - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
-          directory: src/PackerMerge/out
+          directory: PackerMerge/src/PackerMerge/out
           type: 'tar'
           path: ${{ matrix.runtime }}
           filename: 'packer-merge-${{ matrix.runtime }}.tar.gz'
@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: binary-${{ matrix.runtime }}
-          path: src/PackerMerge/out/packer-merge-${{ matrix.runtime }}.tar.gz
+          path: PackerMerge/src/PackerMerge/out/packer-merge-${{ matrix.runtime }}.tar.gz
   gh-release:
     runs-on: ubuntu-latest
     steps:
