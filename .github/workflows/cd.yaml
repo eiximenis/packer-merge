@@ -33,7 +33,7 @@ jobs:
         with:
           type: 'tar'
           path: ${{ github.workspace }}/PackerMerge/src/PackerMerge/out/${{ matrix.runtime }}
-          filename: ../packer-merge-${{ matrix.runtime }}.tar.gz
+          filename: ${{ github.workspace }}/PackerMerge/src/PackerMerge/out/packer-merge-${{ matrix.runtime }}.tar.gz
           exclusions: '*.pdb'
       - name: upload-binaries
         uses: actions/upload-artifact@v2
