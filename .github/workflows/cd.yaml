@@ -1,0 +1,68 @@
+name: dotnet package
+
+on:
+  push:
+    branches:
+    - master
+    tags:
+    - "v*.*.*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        runtime: ['osx-x64', 'linux-x64', 'win-x64']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core SDK 6
+        uses: actions/setup-dotnet
+        with:
+          dotnet-version: "6.0.x"
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        working-directory: src/PackerMerge
+        run: dotnet build --configuration Release --no-restore
+      - name: Publish
+        working-directory: src/PackerMerge
+        run: dotnet publish --configuration Release  -p:PublishSingleFile=true -o out/${{ matrix.runtime }} -r ${{ matrix.runtime }}
+      - uses: actions/checkout@master
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          directory: src/PackerMerge/out
+          type: 'tar'
+          path: ${{ matrix.runtime }}
+          filename: 'packer-merge-${{ matrix.runtime }}.tar.gz'
+          exclusions: '*.pdb'
+      - name: upload-binaries
+        uses: actions/upload-artifact@v2
+        with:
+          name: binary-${{ matrix.runtime }}
+          path: src/PackerMerge/out/packer-merge-${{ matrix.runtime }}.tar.gz
+  gh-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download binaries windows
+        uses: actions/download-artifact@v2
+        with:
+          name: binary-win-x64
+          path: binaries/win
+      - name: Download binaries linux
+        uses: actions/download-artifact@v2
+        with:
+          name: binary-linux-x64
+          path: binaries/linux
+      - name: Download binaries mac
+        uses: actions/download-artifact@v2
+        with:
+          name: binary-osx-x64
+          path: binaries/osx
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            binaries/osx/packer-merge-osx-x64.tar.gz
+            binaries/linux/packer-merge-linux-x64.tar.gz
+            binaries/win/packer-merge.win-x64.tar.gz
