@@ -28,7 +28,6 @@ jobs:
       - name: Publish
         working-directory: PackerMerge/src/PackerMerge
         run: dotnet publish --configuration Release  -p:PublishSingleFile=true -o out/${{ matrix.runtime }} -r ${{ matrix.runtime }}
-      - uses: actions/checkout@master
       - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
