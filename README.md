@@ -6,7 +6,7 @@ Very strong WIP by now, current version is very limited and without any warranty
 
 Any idea is appreciated, so feel free to open issues to submit your ideas.
 
-##Current usage
+## Current usage
 
 Very basic. Has only one command `merge` with following usage:
 
@@ -16,10 +16,10 @@ merge -i template1.json -i template2.json -i templateN.json -o combinedTemplate.
 
 `-i` is for input templates and `-o` is for the result template
 
-##Technology
+## Technology
 
-Project is a _netcoreapp1.1_ console application, but almost all code is in the `PackerMerge.Core` project, which is _netstandard1.4_
+Project is a _net6_ console application, but almost all code is in the `PackerMerge.Core` project, which is _netstandard2.1_
 
-##Other options
+## Other options
 
 If use Ruby take a look to Racker: https://github.com/aspring/racker
