@@ -55,6 +55,7 @@ namespace PackerMerge.Mergers
                 }
             }
 
+
             currentBuilders.Add(newBuilder.DeepClone());
 
         }
@@ -70,15 +71,42 @@ namespace PackerMerge.Mergers
             if (currentFloppyFiles == null && newFloppyFiles == null) return null;
             if (currentFloppyFiles == null) return newFloppyFiles.DeepClone();
 
-            var mixed = currentFloppyFiles.DeepClone();
+            var currentFloppyFilesAndPath = new Dictionary<string, string>();
+            var newFloppyFilesAndPath = new Dictionary<string, string>();
+            foreach (var cfp in currentFloppyFiles)
+            {
+                var entry = cfp.ToString();
+                var tokens = entry.Split('/', StringSplitOptions.RemoveEmptyEntries);
+                var name = tokens[tokens.Length - 1];
+                currentFloppyFilesAndPath.Add(name, entry);
+            }
 
             if (newFloppyFiles != null)
             {
-                foreach (var cfloppy in newFloppyFiles)
+
+                foreach (var nfp in newFloppyFiles)
                 {
-                    mixed.Add(cfloppy);
+                    var entry = nfp.ToString();
+                    var tokens = entry.Split('/', StringSplitOptions.RemoveEmptyEntries);
+                    var name = tokens[tokens.Length - 1];
+                    newFloppyFilesAndPath.Add(name, entry);
+                }
+
+                foreach (var newFloppyEntryKey in newFloppyFilesAndPath.Keys)
+                {
+                    if (currentFloppyFilesAndPath.ContainsKey(newFloppyEntryKey))
+                    {
+                        currentFloppyFilesAndPath[newFloppyEntryKey] = newFloppyFilesAndPath[newFloppyEntryKey];
+                    }
+                    else
+                    {
+                        currentFloppyFilesAndPath.Add(newFloppyEntryKey, newFloppyFilesAndPath[newFloppyEntryKey]);
+                    }
                 }
             }
+
+            var mixed = new Newtonsoft.Json.Linq.JArray(currentFloppyFilesAndPath.Values);
+
             return mixed;
         }
     }
